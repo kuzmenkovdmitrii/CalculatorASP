@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Calculator.Models;
 
 namespace Calculator.Controllers
 {
     public class CalcController : Controller
     {
-        private double a = 0;
+        double A = 0;
+        double B = 0;
+        Actions Operation = Actions.Default;
 
         // GET: Calc
         public ActionResult Index()
@@ -16,58 +19,110 @@ namespace Calculator.Controllers
             return View();
         }
 
-        [HttpGet]
-        public void PutA(double a)
+        public ActionResult SetAAndOperation(double a, Actions operation)
         {
-            this.a = a;
+            if (A == 0)
+            {
+                A = a;
+            }
+
+            Operation = operation;
+            return View("Index");
         }
 
-        [HttpPost]
-        public double Sum(double b)
+        public double Calculate(double b)
+        {
+            B = b;
+            if(Operation == Actions.Sum)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = Sum(A, B);
+            }
+            else if(Operation == Actions.Subtraction)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = Subtraction(A, B);
+            }
+            else if (Operation == Actions.Multiplication)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = Multiplication(A, B);
+            }
+            else if (Operation == Actions.Division)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = Division(A, B);
+            }
+            else if (Operation == Actions.SqrtX)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = SqrtX(A, B);
+            }
+            else if (Operation == Actions.DegreeY)
+            {
+                Operation = Actions.Default;
+                B = 0;
+                return A = DegreeY(A, B);
+            }
+            else if (Operation == Actions.Default)
+            {
+                return 0;
+            }
+            return 12;
+        }
+
+        double Sum(double a, double b)
         {
             return a + b;
         }
 
-        [HttpPost]
-        public double Subtraction(double b) //вычитание
+        double Subtraction(double a, double b)
         {
             return a - b;
         }
 
-        [HttpPost]
-        public double Multiplication(double b)
+        double Multiplication(double a, double b)
         {
             return a * b;
         }
 
-        [HttpPost]
-        public double Division(double b)
+        double Division(double a, double b)
         {
             return a / b;
         }
 
-        [HttpPost]
-        public double SqrtX(double b)
+        double SqrtX(double a, double b)
         {
             return Math.Pow(a, 1 / b);
         }
 
-        [HttpPost]
-        public double DegreeY(double b)
+        public double DegreeY(double a, double b)
         {
             return Math.Pow(a, b);
         }
 
         [HttpPost]
-        public double Sqrt()
+        public double Sqrt(double a)
         {
-            return Math.Sqrt(a);
+            return A = Math.Sqrt(a);
         }
 
         [HttpPost]
-        public double Square()
+        public double Square(double a)
         {
-            return Math.Pow(a, 2.0);
+            return A = Math.Pow(a, 2.0);
+        }
+
+        public void Clear()
+        {
+            A = 0;
+            B = 0;
+            Operation = Actions.Default;
         }
     }
 }
