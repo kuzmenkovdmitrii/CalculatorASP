@@ -65,14 +65,14 @@
             zoom: 1;
         }
 
-        .calc-row:before, .calc-row:after {
-            content: "";
-            display: table;
-        }
+            .calc-row:before, .calc-row:after {
+                content: "";
+                display: table;
+            }
 
-        .calc-row:after {
-            clear: both;
-        }
+            .calc-row:after {
+                clear: both;
+            }
 
         .calc-button {
             float: left;
@@ -102,43 +102,15 @@
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
         }
 
-        .calc-submit {
-            float: left;
-            padding: 0;
-            margin: 0 0 0 7px;
-            width: 39px;
-            font: 14px/23px UbuntuMono, monospace;
-            color: white;
-            text-align: center;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.4);
-            text-decoration: none;
-            background-clip: padding-box !important;
-            /* !important because FF overrides the value on :active */
-            border: 0;
-            /* IE 8 fix */
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            border-radius: 3px;
-            cursor: pointer;
-            background-color: #313131;
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #313131), color-stop(100%, #1c1c1c));
-            background-image: -webkit-linear-gradient(top, #313131, #1c1c1c);
-            background-image: -moz-linear-gradient(top, #313131, #1c1c1c);
-            background-image: -ms-linear-gradient(top, #313131, #1c1c1c);
-            background-image: -o-linear-gradient(top, #313131, #1c1c1c);
-            background-image: linear-gradient(top, #313131, #1c1c1c);
-            -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
-        }
+            .calc-button:first-child {
+                margin-left: 0;
+            }
 
-        .calc-button:first-child {
-            margin-left: 0;
-        }
-
-        .calc-button:active {
-            background: #282828;
-            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
-        }
+            .calc-button:active {
+                background: #282828;
+                -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+                box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            }
 
         .calc-button-gray {
             background-color: #6f6f6f;
@@ -150,9 +122,9 @@
             background-image: linear-gradient(top, #6f6f6f, #515151);
         }
 
-        .calc-button-gray:active {
-            background: #555;
-        }
+            .calc-button-gray:active {
+                background: #555;
+            }
 
         .calc-button-red {
             background-color: #ff4561;
@@ -164,11 +136,11 @@
             background-image: linear-gradient(top, #ff7286, #ff4561);
         }
 
-        .calc-button-red:active {
-            background: #ff4561;
-        }
+            .calc-button-red:active {
+                background: #ff4561;
+            }
 
-        .calc-submit-yellow {
+        .calc-button-yellow {
             background-color: #ffa70c;
             background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffb935), color-stop(100%, #ffa70c));
             background-image: -webkit-linear-gradient(top, #ffb935, #ffa70c);
@@ -178,65 +150,83 @@
             background-image: linear-gradient(top, #ffb935, #ffa70c);
         }
 
-        .calc-submit-yellow:active {
-            background: #ffa70c;
-        }
-
+            .calc-button-yellow:active {
+                background: #ffa70c;
+            }
         .calc-button-big {
             font-size: 16px;
         }
-
-        .calc-submit-big {
-            font-size: 16px;
-        }
     </style>
+
 </head>
 <body>
+    <script type="text/javascript">
+        var A;
+        var Operation;
+
+        function ClickA(operation) {
+            A = document.getElementById("answer").value;
+            Operation = operation;
+            answer.value = '';
+        }
+
+        function Clear() {
+            answer.value = '';
+            A = 0;
+            B = 0;
+            Operation = 'Default';
+        }
+
+        function Calculate() {
+            location.href = '@Url.Action("Calculate", "Calc")' + '?a=' + A + '&b=' + document.getElementById("answer").value + '&operation=' + Operation;
+        }
+
+        function CalculateSqrt() {
+            location.href = '@Url.Action("Sqrt", "Calc")' + '?a=' + document.getElementById("answer").value;
+        }
+
+        function CalculateSquare() {
+            location.href = '@Url.Action("Square", "Calc")' + '?a=' + document.getElementById("answer").value;
+        }
+    </script>
     <div class="calc" id='calc-contain'>
         <p class="calc-display">
-            <input type="text" name="answer" id="answer" value="0" class="calc-display-input" onfocus="this.blur()">
-        </p> 
+            <input type="text" name="answer" id="answer" value="@ViewBag.CalculateValue" class="calc-display-input" onfocus="this.blur()">
+        </p>
         <div class="keys">
-            @using (Ajax.BeginForm("Calculate", new AjaxOptions { UpdateTargetId = "answer" }))
-            {
-                <p class="calc-row">
-                    <input type="button" class="calc-button" value=" 1 " onclick="answer.value += '1'" />
-                    <input type="button" class="calc-button" value=" 2 " onclick="answer.value += '2'" />
-                    <input type="button" class="calc-button" value=" 3 " onclick="answer.value += '3'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" + " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.Sum })'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^2 " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12 })'" />
-                </p>
+            <p class="calc-row">
+                <input type="button" class="calc-button" value=" 1 " onclick="answer.value += '1'" />
+                <input type="button" class="calc-button" value=" 2 " onclick="answer.value += '2'" />
+                <input type="button" class="calc-button" value=" 3 " onclick="answer.value += '3'" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" + " onclick="ClickA('Sum');" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^2 " onclick="CalculateSquare();" />
+            </p>
 
-                <p class="calc-row">
-                    <input type="button" class="calc-button" value=" 4 " onclick="answer.value += '4'" />
-                    <input type="button" class="calc-button" value=" 5 " onclick="answer.value += '5'" />
-                    <input type="button" class="calc-button" value=" 6 " onclick="answer.value += '6'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" - " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.Subtraction })'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" √ " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12 })'" />
-                </p>
+            <p class="calc-row">
+                <input type="button" class="calc-button" value=" 4 " onclick="answer.value += '4'" />
+                <input type="button" class="calc-button" value=" 5 " onclick="answer.value += '5'" />
+                <input type="button" class="calc-button" value=" 6 " onclick="answer.value += '6'" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" - " onclick="ClickA('Subtraction');" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" √ " onclick="CalculateSqrt();" />
+            </p>
 
-                <p class="calc-row">
-                    <input type="button" class="calc-button" value=" 7 " onclick="answer.value += '7'" />
-                    <input type="button" class="calc-button" value=" 8 " onclick="answer.value += '8'" />
-                    <input type="button" class="calc-button" value=" 9 " onclick="answer.value += '9'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" * " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.Multiplication })'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^y " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.DegreeY })'" />
-                </p>
+            <p class="calc-row">
+                <input type="button" class="calc-button" value=" 7 " onclick="answer.value += '7'" />
+                <input type="button" class="calc-button" value=" 8 " onclick="answer.value += '8'" />
+                <input type="button" class="calc-button" value=" 9 " onclick="answer.value += '9'" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" * " onclick="ClickA('Multiplication');" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^y " onclick="ClickA('DegreeY');" />
+            </p>
 
-                <p class="calc-row">
-                    <input type="button" class="calc-button" value=" c " onclick="location.href='@Url.Action("SetAAndOperation", "Calc")'" />
-                    <input type="button" class="calc-button" value=" 0 " onclick="answer.value += '0'" />
-                    <input type="submit" class="calc-submit calc-submit-yellow calc-submit-big" style="background-color:orange" value=" = " onclick="location.href='@Url.Action("Calculate", "Calc", new { b = 14 })'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" ÷ " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.Division })'" />
-                    <input type="button" class="calc-button calc-button-red calc-button-big" value=" y√x " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.SqrtX })'" />
-                </p>
-
-                <p class="calc-row">
-                    <input type="button" class="calc-button" value=" . " onclick="answer.value += '.'" />
-                    <input type="button" class="calc-button" style="width:177px" value=" История " onclick="location.href='@Url.Action("SetAAndOperation", "Calc", new { a = 12, operation = Actions.SqrtX })'" />
-                </p>
-            }
-</div>
+            <p class="calc-row">
+                <input type="button" class="calc-button" value=" c " onclick="Clear();" />
+                <input type="button" class="calc-button" value=" 0 " onclick="answer.value += '0'" />
+                <input type="button" class="calc-button calc-button-yellow calc-button-big" value=" = " onclick="Calculate();" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" ÷ " onclick="ClickA('Division');" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value=" y√x " onclick="ClickA('SqrtX');" />
+            </p>
+        </div>
     </div>
 </body>
+
 </html>
