@@ -160,6 +160,27 @@
 
 </head>
 <body>
+    <audio src="~/Sounds/0.mp3" id="0"></audio>
+    <audio src="~/Sounds/1.mp3" id="1"></audio>
+    <audio src="~/Sounds/2.mp3" id="2"></audio>
+    <audio src="~/Sounds/3.mp3" id="3"></audio>
+    <audio src="~/Sounds/4.mp3" id="4"></audio>
+    <audio src="~/Sounds/5.mp3" id="5"></audio>
+    <audio src="~/Sounds/6.mp3" id="6"></audio>
+    <audio src="~/Sounds/7.mp3" id="7"></audio>
+    <audio src="~/Sounds/8.mp3" id="8"></audio>
+    <audio src="~/Sounds/9.mp3" id="9"></audio>
+    <audio src="~/Sounds/Sum.mp3" id="Sum"></audio>
+    <audio src="~/Sounds/DegreeY.mp3" id="DegreeY"></audio>
+    <audio src="~/Sounds/Division.mp3" id="Division"></audio>
+    <audio src="~/Sounds/Multiplication.mp3" id="Multiplication"></audio>
+    <audio src="~/Sounds/Sqrt.mp3" id="Sqrt"></audio>
+    <audio src="~/Sounds/SqrtX.mp3" id="SqrtX"></audio>
+    <audio src="~/Sounds/Square.mp3" id="Square"></audio>
+    <audio src="~/Sounds/Subtraction.mp3" id="Subtraction"></audio>
+    <audio src="~/Sounds/Clear.mp3" id="Clear"></audio>
+    <audio src="~/Sounds/Equally.mp3" id="Equally"></audio>
+
     <script type="text/javascript">
         var A;
         var Operation;
@@ -188,42 +209,47 @@
         function CalculateSquare() {
             location.href = '@Url.Action("Square", "Calc")' + '?a=' + document.getElementById("answer").value;
         }
+        function soundClick(operation) {
+            audio = document.getElementById(operation);
+            audio.play();
+        }
     </script>
+
     <div class="calc" id='calc-contain'>
         <p class="calc-display">
             <input type="text" name="answer" id="answer" value="@ViewBag.CalculateValue" class="calc-display-input" onfocus="this.blur()">
         </p>
         <div class="keys">
             <p class="calc-row">
-                <input type="button" class="calc-button" value=" 1 " onclick="answer.value += '1'" />
-                <input type="button" class="calc-button" value=" 2 " onclick="answer.value += '2'" />
-                <input type="button" class="calc-button" value=" 3 " onclick="answer.value += '3'" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" + " onclick="ClickA('Sum');" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^2 " onclick="CalculateSquare();" />
+                <input type="button" class="calc-button" value="1" onclick="answer.value += '1'" onmouseover="soundClick('1')" />
+                <input type="button" class="calc-button" value="2" onclick="answer.value += '2'" onmouseover="soundClick('2')" />
+                <input type="button" class="calc-button" value="3" onclick="answer.value += '3'" onmouseover="soundClick('3')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="+" onclick="ClickA('Sum');" onmouseover="soundClick('Sum')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="x^2" onclick="CalculateSquare();" onmouseover="soundClick('Square')" />
             </p>
 
             <p class="calc-row">
-                <input type="button" class="calc-button" value=" 4 " onclick="answer.value += '4'" />
-                <input type="button" class="calc-button" value=" 5 " onclick="answer.value += '5'" />
-                <input type="button" class="calc-button" value=" 6 " onclick="answer.value += '6'" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" - " onclick="ClickA('Subtraction');" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" √ " onclick="CalculateSqrt();" />
+                <input type="button" class="calc-button" value="4" onclick="answer.value += '4'" onmouseover="soundClick('4')" />
+                <input type="button" class="calc-button" value="5" onclick="answer.value += '5'" onmouseover="soundClick('5')" />
+                <input type="button" class="calc-button" value="6" onclick="answer.value += '6'" onmouseover="soundClick('6')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="-" onclick="ClickA('Subtraction');" onmouseover="soundClick('Subtraction')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="√" onclick="CalculateSqrt();" onmouseover="soundClick('Sqrt')" />
             </p>
 
             <p class="calc-row">
-                <input type="button" class="calc-button" value=" 7 " onclick="answer.value += '7'" />
-                <input type="button" class="calc-button" value=" 8 " onclick="answer.value += '8'" />
-                <input type="button" class="calc-button" value=" 9 " onclick="answer.value += '9'" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" * " onclick="ClickA('Multiplication');" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" x^y " onclick="ClickA('DegreeY');" />
+                <input type="button" class="calc-button" value="7" onclick="answer.value += '7'" onmouseover="soundClick('7')" />
+                <input type="button" class="calc-button" value="8" onclick="answer.value += '8'" onmouseover="soundClick('8')" />
+                <input type="button" class="calc-button" value="9" onclick="answer.value += '9'" onmouseover="soundClick('9')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="*" onclick="ClickA('Multiplication');" onmouseover="soundClick('Multiplication')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="x^y" onclick="ClickA('DegreeY');" onmouseover="soundClick('DegreeY')" />
             </p>
 
             <p class="calc-row">
-                <input type="button" class="calc-button" value=" c " onclick="Clear();" />
-                <input type="button" class="calc-button" value=" 0 " onclick="answer.value += '0'" />
-                <input type="button" class="calc-button calc-button-yellow calc-button-big" value=" = " onclick="Calculate();" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" ÷ " onclick="ClickA('Division');" />
-                <input type="button" class="calc-button calc-button-red calc-button-big" value=" y√x " onclick="ClickA('SqrtX');" />
+                <input type="button" class="calc-button" value="c" onclick="Clear();" onmouseover="soundClick('Clear')" />
+                <input type="button" class="calc-button" value="0" onclick="answer.value += '0'" onmouseover="soundClick('0')" />
+                <input type="button" class="calc-button calc-button-yellow calc-button-big" value="=" onclick="Calculate();" onmouseover="soundClick('Equally')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="÷" onclick="ClickA('Division');" onmouseover="soundClick('Division')" />
+                <input type="button" class="calc-button calc-button-red calc-button-big" value="y√x" onclick="ClickA('SqrtX');" onmouseover="soundClick('SqrtX')" />
             </p>
         </div>
     </div>
